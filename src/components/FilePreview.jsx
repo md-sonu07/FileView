@@ -24,7 +24,7 @@ import { FileTypeIcon } from '../utils/fileIcons';
 import { formatFileSize, formatDate, getFileExtension } from '../utils/formatters';
 import { getFileCategory, detectLanguage, highlightCodeLine } from '../utils/syntaxHighlighter';
 
-export function FilePreview({ item, onClose }) {
+export function FilePreview({ item, filePath, onClose }) {
   // Content states
   const [previewContent, setPreviewContent] = useState(item?.rawText || null);
   const [previewImageUrl, setPreviewImageUrl] = useState(null);
@@ -215,11 +215,21 @@ export function FilePreview({ item, onClose }) {
 
           <div className="h-5 w-px bg-slate-200 shrink-0" />
 
-          <div className="flex items-center gap-2 min-w-0">
+          <div className="flex items-center gap-2.5 min-w-0">
             <FileTypeIcon isDirectory={false} fileName={item.name} size={18} />
-            <span className="font-semibold text-slate-900 text-sm truncate max-w-50 md:max-w-md" title={item.name}>
-              {item.name}
-            </span>
+            <div className="flex flex-col min-w-0">
+              {filePath && (
+                <span
+                  className="text-[10.5px] text-slate-400 font-mono truncate max-w-60 md:max-w-md leading-tight"
+                  title={filePath}
+                >
+                  {filePath}
+                </span>
+              )}
+              <span className="font-semibold text-slate-900 text-sm truncate max-w-50 md:max-w-md leading-tight" title={item.name}>
+                {item.name}
+              </span>
+            </div>
 
             {/* Language / Type Badge */}
             <span

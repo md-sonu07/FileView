@@ -13,6 +13,8 @@ export function Toolbar({
   mode = 'handle',
   breadcrumbs,
   currentUrl,
+  parentPathPrefix,
+  onSetParentPathPrefix,
   onNavigateCrumb,
   onBack,
   onNavigateUrl,
@@ -35,6 +37,8 @@ export function Toolbar({
           mode={mode}
           breadcrumbs={breadcrumbs}
           currentUrl={currentUrl}
+          parentPathPrefix={parentPathPrefix}
+          onSetParentPathPrefix={onSetParentPathPrefix}
           onNavigateCrumb={onNavigateCrumb}
           onBack={onBack}
           onNavigateUrl={onNavigateUrl}

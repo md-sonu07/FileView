@@ -38,6 +38,28 @@ export function App() {
   // file:/// Auto-enhancement toggle state
   const [isAutoEnhanceEnabled, setIsAutoEnhanceEnabled] = useState(true);
 
+  // Folder Location / Parent Path Prefix (e.g. 'Desktop' or 'Desktop/Projects')
+  const [parentPathPrefix, setParentPathPrefix] = useState(() => {
+    try {
+      return localStorage.getItem('fileview_parent_path') || 'Desktop';
+    } catch {
+      return 'Desktop';
+    }
+  });
+
+  const handleSetParentPathPrefix = (prefix) => {
+    setParentPathPrefix(prefix);
+    try {
+      if (prefix) {
+        localStorage.setItem('fileview_parent_path', prefix);
+      } else {
+        localStorage.removeItem('fileview_parent_path');
+      }
+    } catch (e) {
+      console.warn('Could not save parent path to localStorage', e);
+    }
+  };
+
   // Active directory handle (when mode === 'handle')
   const currentFolderHandle = breadcrumbs.length > 0
     ? breadcrumbs[breadcrumbs.length - 1].handle
@@ -311,9 +333,15 @@ export function App() {
         currentUrl={mode === 'url' ? currentUrl : ''}
       />
 
-      {/* Address Bar for URL / file:/// paths */}
+      {/* Address Bar for URL / file:/// paths & handle full path */}
       <AddressBar
-        currentUrl={mode === 'url' ? currentUrl : ''}
+        currentUrl={
+          mode === 'url'
+            ? currentUrl
+            : breadcrumbs.length > 0
+            ? `${parentPathPrefix && breadcrumbs[0]?.name?.toLowerCase() !== parentPathPrefix.toLowerCase() ? parentPathPrefix + '/' : ''}${breadcrumbs.map((b) => b.name).join('/')}/`
+            : ''
+        }
         onOpenUrl={(url) => handleOpenUrl(url)}
         isLoading={isLoading}
       />
@@ -365,6 +393,8 @@ export function App() {
             mode={mode}
             breadcrumbs={breadcrumbs}
             currentUrl={currentUrl}
+            parentPathPrefix={parentPathPrefix}
+            onSetParentPathPrefix={handleSetParentPathPrefix}
             onNavigateCrumb={handleNavigateCrumb}
             onBack={handleBackHandle}
             onNavigateUrl={(url) => handleOpenUrl(url)}
@@ -417,6 +447,11 @@ export function App() {
       {selectedFileForModal && (
         <FilePreview
           item={selectedFileForModal}
+          filePath={
+            mode === 'url'
+              ? (currentUrl.endsWith('/') ? currentUrl : currentUrl + '/') + selectedFileForModal.name
+              : `${parentPathPrefix && breadcrumbs[0]?.name?.toLowerCase() !== parentPathPrefix.toLowerCase() ? parentPathPrefix + '/' : ''}${breadcrumbs.map((b) => b.name).join('/')}/${selectedFileForModal.name}`
+          }
           onClose={() => setSelectedFileForModal(null)}
         />
       )}
