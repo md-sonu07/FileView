@@ -165,7 +165,7 @@ export function App() {
     }
   }, []);
 
-  // Check URL parameters on mount (?action=pick or ?url=...)
+  // Check URL parameters on mount (?url=... or cleanup ?action=pick)
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const action = params.get('action');
@@ -173,25 +173,20 @@ export function App() {
 
     if (urlParam) {
       handleOpenUrl(urlParam);
-    } else if (action === 'pick') {
-      handleChooseFolder();
+    }
+
+    // If an action parameter was passed (e.g. action=pick), clean it up from the URL
+    // so refreshing or re-rendering doesn't cause issues.
+    // Note: showDirectoryPicker MUST NOT be called in useEffect as it requires a direct user gesture.
+    if (action) {
+      const newUrl = new URL(window.location.href);
+      newUrl.searchParams.delete('action');
+      window.history.replaceState({}, '', newUrl.toString());
     }
   }, []);
 
   // Choose folder via File System Access API
   const handleChooseFolder = async () => {
-    // Check if running in a popup window
-    const isExtensionPopup =
-      typeof chrome !== 'undefined' &&
-      chrome?.extension?.getViews &&
-      chrome.extension.getViews({ type: 'popup' }).includes(window);
-
-    // If in extension popup, open in a full tab to avoid OS file dialog dismissing the popup
-    if (isExtensionPopup && typeof chrome !== 'undefined' && chrome?.tabs?.create) {
-      chrome.tabs.create({ url: chrome.runtime.getURL('index.html?action=pick') });
-      return;
-    }
-
     if (!isFileSystemAccessSupported()) {
       setErrorMessage(
         'Native File System Access API is not supported in this browser. Please use the URL / path input above (e.g. file:///).'
@@ -201,14 +196,21 @@ export function App() {
 
     try {
       const handle = await pickDirectory();
-      if (!handle) return; // User cancelled
+      if (!handle) return; // User cancelled picker dialog
 
       setBreadcrumbs([{ name: handle.name || 'Root Folder', handle }]);
       setSearchQuery('');
       await loadHandleDirectory(handle);
     } catch (err) {
       console.error('Error choosing folder:', err);
-      setErrorMessage(err.message || 'Failed to select directory.');
+      // Gracefully ignore user cancellations
+      if (err.name === 'AbortError') return;
+
+      if (err.name === 'SecurityError') {
+        setErrorMessage('Folder selection requires a direct user click. Please click "Choose Folder" again.');
+      } else {
+        setErrorMessage(err.message || 'Failed to select directory.');
+      }
     }
   };
 
@@ -405,7 +407,10 @@ export function App() {
         </>
       ) : (
         <main className="flex-1 overflow-y-auto relative bg-white">
-          <WelcomeState onOpenUrl={(url) => handleOpenUrl(url)} />
+          <WelcomeState
+            onOpenUrl={(url) => handleOpenUrl(url)}
+            onChooseFolder={handleChooseFolder}
+          />
         </main>
       )}
 

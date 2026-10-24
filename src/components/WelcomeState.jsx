@@ -7,7 +7,7 @@ import {
   Info,
 } from 'lucide-react';
 
-export function WelcomeState({ onOpenUrl }) {
+export function WelcomeState({ onOpenUrl, onChooseFolder }) {
   return (
     <div className="flex flex-col items-center justify-center text-center px-6 py-6 select-none">
       <img
@@ -20,6 +20,19 @@ export function WelcomeState({ onOpenUrl }) {
       <p className="text-[13.5px] text-slate-600 max-w-md mb-4 leading-relaxed">
         Browse your computer's files using the native folder picker or enter any local <code className="bg-slate-100 text-blue-700 px-1 py-0.5 rounded font-mono text-xs">file:///</code> path.
       </p>
+
+      {/* Primary Folder Picker Button */}
+      {onChooseFolder && (
+        <button
+          type="button"
+          onClick={onChooseFolder}
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs shadow-xs hover:shadow transition-all cursor-pointer mb-5"
+          title="Open local folder using native picker"
+        >
+          <FolderOpen size={16} />
+          <span>Choose Folder to Explore</span>
+        </button>
+      )}
 
       {/* Quick paths for instant navigation */}
       <div className="flex items-center gap-2 flex-wrap justify-center max-w-md mb-4">
