@@ -5,7 +5,7 @@ import { AddressBar } from './components/AddressBar';
 import { Toolbar } from './components/Toolbar';
 import { FileList } from './components/FileList';
 import { WelcomeState } from './components/WelcomeState';
-import { FileDetailsModal } from './components/FileDetailsModal';
+import { FilePreview } from './components/FilePreview';
 import { StatusBar } from './components/StatusBar';
 import { pickDirectory, readDirectory, isFileSystemAccessSupported } from './utils/fileSystem';
 import { fetchPathOrUrl, normalizeUrl } from './utils/urlReader';
@@ -410,7 +410,7 @@ export function App() {
       )}
 
       {selectedFileForModal && (
-        <FileDetailsModal
+        <FilePreview
           item={selectedFileForModal}
           onClose={() => setSelectedFileForModal(null)}
         />

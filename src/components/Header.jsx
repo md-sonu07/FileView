@@ -39,7 +39,7 @@ export function Header({
         {/* Clickable Toggle Pill */}
         <label
           htmlFor="header-auto-toggle-input"
-          className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold cursor-pointer transition-colors duration-150 border whitespace-nowrap ${
+          className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-semibold cursor-pointer transition-colors duration-150 border whitespace-nowrap ${
             isAutoEnhanceEnabled
               ? 'bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100/70'
               : 'bg-slate-100 border-slate-200 text-slate-600 hover:bg-slate-200/70'
@@ -57,7 +57,7 @@ export function Header({
             size={13}
             className={isAutoEnhanceEnabled ? 'text-blue-600' : 'text-slate-400'}
           />
-          <span className="text-xs">file:/// UI</span>
+          <span className="text-xs">UI</span>
           <span
             className={`relative inline-block w-7 h-4 rounded-full transition-colors ${
               isAutoEnhanceEnabled ? 'bg-blue-600' : 'bg-slate-300'
@@ -76,14 +76,14 @@ export function Header({
                 : 'bg-slate-200 text-slate-600'
             }`}
           >
-            {isAutoEnhanceEnabled ? 'ON' : 'OFF'}
+            {/* {isAutoEnhanceEnabled ? 'ON' : 'OFF'} */}
           </span>
         </label>
 
         {currentUrl && currentUrl.startsWith('file:///') && (
           <button
             type="button"
-            className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium rounded-md border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 transition-colors cursor-pointer whitespace-nowrap"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md border border-slate-200 bg-white text-slate-800 hover:bg-slate-50 hover:border-slate-300 shadow-xs transition-colors cursor-pointer whitespace-nowrap"
             onClick={handleOpenClassic}
             title="View the raw default Chrome file:/// directory page"
           >

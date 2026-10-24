@@ -1,6 +1,13 @@
 import React from 'react';
-import { Search, X, RotateCw, ArrowUpDown } from 'lucide-react';
+import { Search, X, RotateCw, ArrowUpDown, ArrowDownAZ, HardDrive, Clock } from 'lucide-react';
 import { Breadcrumbs } from './Breadcrumbs';
+import { CustomDropdown } from './CustomDropdown';
+
+const sortOptions = [
+  { value: 'name', label: 'Name', icon: ArrowDownAZ },
+  { value: 'size', label: 'Size', icon: HardDrive },
+  { value: 'modified', label: 'Modified', icon: Clock },
+];
 
 export function Toolbar({
   mode = 'handle',
@@ -79,16 +86,12 @@ export function Toolbar({
               : `${totalItemsCount} ${totalItemsCount === 1 ? 'item' : 'items'}`}
           </span>
 
-          <select
-            className="text-xs font-medium text-slate-600 bg-white border border-slate-200 px-2.5 py-1.5 rounded-md outline-none focus:border-blue-600 cursor-pointer"
+          <CustomDropdown
             value={sortBy}
-            onChange={(e) => onSortByChange(e.target.value)}
-            aria-label="Sort by"
-          >
-            <option value="name">Sort by Name</option>
-            <option value="size">Sort by Size</option>
-            <option value="modified">Sort by Modified</option>
-          </select>
+            onChange={onSortByChange}
+            options={sortOptions}
+            ariaLabel="Sort files"
+          />
 
           <button
             type="button"
