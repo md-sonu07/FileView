@@ -223,7 +223,7 @@ export function FilePreview({ item, onClose }) {
 
             {/* Language / Type Badge */}
             <span
-              className={`px-2 py-0.5 rounded text-[10.5px] font-mono font-bold uppercase tracking-wider shrink-0 ${
+              className={`px-2 py-0.5 rounded-xl text-[10.5px] font-mono font-bold uppercase tracking-wider shrink-0 ${
                 category === 'code'
                   ? 'bg-purple-100 text-purple-700 border border-purple-200'
                   : category === 'image'

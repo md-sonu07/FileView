@@ -1,6 +1,24 @@
-# FileView - Modern Local File Explorer (Chrome Extension)
+<div align="center">
+  <img src="./public/icons/logo.png" alt="FileView Logo" width="112" height="112" />
+  <h1>FileView</h1>
+  <p><strong>A clean, modern local file explorer and <code>file:///</code> directory transformer for Google Chrome.</strong></p>
 
-A clean, modern local file explorer and `file:///` directory replacement extension built with Chrome Extension Manifest V3, React 18, Tailwind CSS v4, and Lucide React.
+  <p>
+    <img src="https://img.shields.io/badge/Chrome_Extension-Manifest_V3-4285F4?style=flat-square&logo=googlechrome&logoColor=white" alt="Manifest V3" />
+    <img src="https://img.shields.io/badge/React-18.3-61DAFB?style=flat-square&logo=react&logoColor=black" alt="React 18" />
+    <img src="https://img.shields.io/badge/Tailwind_CSS-v4.0-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS v4" />
+    <img src="https://img.shields.io/badge/Vite-5.4-646CFF?style=flat-square&logo=vite&logoColor=white" alt="Vite 5" />
+    <img src="https://img.shields.io/badge/Privacy-100%25_Local-emerald?style=flat-square" alt="100% Local" />
+  </p>
+
+  <p>
+    <a href="#quick-setup-guide"><b>⚡ Quick Setup</b></a> &nbsp;•&nbsp;
+    <a href="#key-features"><b>✨ Key Features</b></a> &nbsp;•&nbsp;
+    <a href="#how-to-use-fileview"><b>📖 How to Use</b></a> &nbsp;•&nbsp;
+    <a href="#keyboard-shortcuts"><b>⌨️ Shortcuts</b></a> &nbsp;•&nbsp;
+    <a href="https://github.com/md-sonu07/FileView/releases"><b>📦 Download</b></a>
+  </p>
+</div>
 
 ---
 

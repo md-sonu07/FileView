@@ -405,7 +405,7 @@ export function App() {
         </>
       ) : (
         <main className="flex-1 overflow-y-auto relative bg-white">
-          <WelcomeState />
+          <WelcomeState onOpenUrl={(url) => handleOpenUrl(url)} />
         </main>
       )}
 

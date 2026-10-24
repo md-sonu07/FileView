@@ -55,34 +55,66 @@ export function Toolbar({
         </button>
       </div>
 
-      {/* Row 2: Search bar and Sort controls */}
+      {/* Row 2: Search bar, Quick paths, and Sort controls */}
       <div className="flex items-center justify-between gap-3">
-        <div className="relative flex-1 max-w-sm">
-          <Search size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
-          <input
-            type="text"
-            className="w-full pl-8 pr-7 py-1.5 text-xs bg-white border border-slate-200 rounded-md text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/15 transition-all"
-            placeholder="Filter files by name..."
-            value={searchQuery}
-            onChange={(e) => onSearchChange(e.target.value)}
-          />
-          {searchQuery && (
+        <div className="flex items-center gap-2.5 flex-1 min-w-0">
+          {/* Search bar */}
+          <div className="relative flex-1 max-w-xs min-w-32">
+            <Search size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+            <input
+              type="text"
+              className="w-full pl-8 pr-7 py-1.5 text-xs bg-white border border-slate-200 rounded-md text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/15 transition-all"
+              placeholder="Filter files..."
+              value={searchQuery}
+              onChange={(e) => onSearchChange(e.target.value)}
+            />
+            {searchQuery && (
+              <button
+                type="button"
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-0.5 rounded-full hover:bg-slate-100 cursor-pointer"
+                onClick={() => onSearchChange('')}
+                title="Clear search"
+                aria-label="Clear search"
+              >
+                <X size={12} />
+              </button>
+            )}
+          </div>
+
+          {/* Quick paths chips */}
+          <div className="flex items-center gap-1.5 shrink-0">
             <button
               type="button"
-              className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-0.5 rounded-full hover:bg-slate-100 cursor-pointer"
-              onClick={() => onSearchChange('')}
-              title="Clear search"
-              aria-label="Clear search"
+              className="font-mono text-[11px] px-2 py-0.5 bg-white border border-slate-200 text-slate-600 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 rounded-full transition-colors cursor-pointer whitespace-nowrap"
+              onClick={() => onNavigateUrl && onNavigateUrl('file:///Users/')}
+              title="Jump to file:///Users/"
             >
-              <X size={12} />
+              file:///Users/
             </button>
-          )}
+            <button
+              type="button"
+              className="font-mono text-[11px] px-2 py-0.5 bg-white border border-slate-200 text-slate-600 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 rounded-full transition-colors cursor-pointer whitespace-nowrap"
+              onClick={() => onNavigateUrl && onNavigateUrl('file:///')}
+              title="Jump to file:///"
+            >
+              file:///
+            </button>
+            <button
+              type="button"
+              className="font-mono text-[11px] px-2 py-0.5 bg-white border border-slate-200 text-slate-600 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 rounded-full transition-colors cursor-pointer whitespace-nowrap"
+              onClick={() => onNavigateUrl && onNavigateUrl('file:///C:/')}
+              title="Jump to file:///C:/"
+            >
+              file:///C:/
+            </button>
+          </div>
         </div>
 
-        <div className="flex items-center gap-2.5">
+        {/* Sort controls */}
+        <div className="flex items-center gap-2 shrink-0">
           <span className="text-xs text-slate-400 whitespace-nowrap">
             {searchQuery
-              ? `${filteredItemsCount} of ${totalItemsCount} items`
+              ? `${filteredItemsCount} of ${totalItemsCount}`
               : `${totalItemsCount} ${totalItemsCount === 1 ? 'item' : 'items'}`}
           </span>
 

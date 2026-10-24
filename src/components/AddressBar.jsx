@@ -17,13 +17,8 @@ export function AddressBar({ currentUrl, onOpenUrl, isLoading }) {
     }
   };
 
-  const handleQuickChip = (chipUrl) => {
-    setInputVal(chipUrl);
-    onOpenUrl(chipUrl);
-  };
-
   return (
-    <div className="px-5 py-2.5 bg-slate-50/80 border-b border-slate-200 flex flex-col gap-2">
+    <div className="px-5 py-2.5 bg-slate-50/80 border-b border-slate-200">
       <form className="flex items-center gap-2" onSubmit={handleSubmit}>
         <div className="relative flex-1">
           <Globe size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-blue-600 pointer-events-none" />
@@ -48,38 +43,13 @@ export function AddressBar({ currentUrl, onOpenUrl, isLoading }) {
 
         <button
           type="submit"
-          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-md bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed shadow-xs transition-colors cursor-pointer"
+          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-md bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed shadow-xs transition-colors cursor-pointer whitespace-nowrap"
           disabled={!inputVal.trim() || isLoading}
         >
           <span>Open URL</span>
           <ArrowRight size={13} />
         </button>
       </form>
-
-      <div className="flex items-center gap-1.5 flex-wrap">
-        <span className="text-[11px] font-medium text-slate-400">Quick paths:</span>
-        <button
-          type="button"
-          className="font-mono text-[11px] px-2 py-0.5 bg-white border border-slate-200 text-slate-600 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 rounded-full transition-colors cursor-pointer"
-          onClick={() => handleQuickChip('file:///Users/')}
-        >
-          file:///Users/
-        </button>
-        <button
-          type="button"
-          className="font-mono text-[11px] px-2 py-0.5 bg-white border border-slate-200 text-slate-600 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 rounded-full transition-colors cursor-pointer"
-          onClick={() => handleQuickChip('file:///')}
-        >
-          file:///
-        </button>
-        <button
-          type="button"
-          className="font-mono text-[11px] px-2 py-0.5 bg-white border border-slate-200 text-slate-600 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 rounded-full transition-colors cursor-pointer"
-          onClick={() => handleQuickChip('file:///C:/')}
-        >
-          file:///C:/
-        </button>
-      </div>
     </div>
   );
 }

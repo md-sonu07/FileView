@@ -1,5 +1,5 @@
 import React from 'react';
-import { FolderOpen, ExternalLink, HardDrive, Sparkles, ArrowUpRight } from 'lucide-react';
+import { FolderOpen, ExternalLink, Sparkles, ArrowUpRight } from 'lucide-react';
 
 export function Header({
   onChooseFolder,
@@ -29,9 +29,11 @@ export function Header({
   return (
     <header className="flex items-center justify-between px-5 py-3 bg-white border-b border-slate-200 select-none">
       <div className="flex items-center gap-2.5">
-        <div className="w-8 h-8 rounded-lg bg-linear-to-br from-blue-600 to-blue-500 text-white flex items-center justify-center shadow-sm shadow-blue-500/20">
-          <HardDrive size={18} strokeWidth={2.4} />
-        </div>
+        <img
+          src="./icons/icon48.png"
+          alt="FileView Logo"
+          className="w-8 h-8 rounded-lg shadow-2xs object-cover"
+        />
         <h1 className="text-[17px] font-bold text-slate-900 tracking-tight">FileView</h1>
       </div>
 
@@ -68,15 +70,6 @@ export function Header({
                 isAutoEnhanceEnabled ? 'translate-x-3' : 'translate-x-0'
               }`}
             />
-          </span>
-          <span
-            className={`text-[10px] font-bold px-1 py-0.5 rounded uppercase tracking-wider ${
-              isAutoEnhanceEnabled
-                ? 'bg-blue-200/70 text-blue-800'
-                : 'bg-slate-200 text-slate-600'
-            }`}
-          >
-            {/* {isAutoEnhanceEnabled ? 'ON' : 'OFF'} */}
           </span>
         </label>
 
